@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-// import Button from 'material-ui/core/Button';
+import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
+import Button from '@material-ui/core/Button';
 import Login from './Login';
 import Register from './Register';
 
@@ -8,7 +8,7 @@ class LoginScreen extends Component
 {
     constructor(props){
         super(props);
-        this.setState = {
+        this.State = {
             username:'',
             password:'',
             loginscreen:[],
@@ -60,16 +60,20 @@ class LoginScreen extends Component
     render() {
         return (
           <div className="loginscreen">
+            <h1>LOGIN SCREEN</h1>
             {this.state.loginscreen}
             <div>
               {this.state.loginmessage}
               <MuiThemeProvider>
                 <div>
-                {/* <Button 
+                <Button 
                     label={this.state.buttonLabel} 
+                    variant = "contained"
                     primary={true} 
                     style={style} 
-                    onClick={(event) => this.handleClick(event)}/> */}
+                    onClick={(event) => this.handleClick(event)}>
+                      Register
+                      </Button>
                </div>
               </MuiThemeProvider>
             </div>

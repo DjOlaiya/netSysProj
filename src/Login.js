@@ -1,8 +1,10 @@
 import React, {Component}from 'react';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-// import AppBar from 'material-ui/core/AppBar';
-// import Button from 'material-ui/core/Button';
-import TextField from 'material-ui/core/TextField';
+import {ThemeProvider as MuiThemeProvider} from '@material-ui/core/styles';
+import AppBar from '@material-ui/core/AppBar';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import Grid from "@material-ui/core/Grid";
+import { makeStyles } from "@material-ui/core/styles";
 import axios from 'axios';
 import UploadScreen from './UploadScreen';
 
@@ -48,25 +50,31 @@ class Login extends Component {
     render(){
         return(
             <div>
+                <h1> LOGIN</h1>
                 <MuiThemeProvider>
                     <div>
-                        {/* <AppBar title = 'Login'/> */}
+                        <AppBar title = 'Login'/>
                         <TextField 
+                         variant = "outlined"
                          hintText = "Enter Username" 
-                         floatingLabelText = "Username"
+                         label = "Username"
                          onChange = {(event,newValue) => this.setState({username:newValue})}
                         />
                          <br/>
                         <TextField 
+                           variant="outlined"
                            type = "Password"
                            hintText = "Enter your Password"
-                           floatingLabelText = "Password"
+                           label = "Password"
                            onChange = {(event,newValue)=> this.setState({password:newValue})}
                         />
                             <br/>
-                            {/* <Button variant="contained"
+                            <Button 
+                            variant="contained"
                              style={style}
-                             onClick = {(event)=> this.handleClick(event)}/>  */}
+                             onClick = {(event)=> this.handleClick(event)}>
+                            Sign In     
+                            </Button> 
                     </div>
                 </MuiThemeProvider>
             </div>
@@ -74,4 +82,17 @@ class Login extends Component {
     }
 }
 const style = {margin: 15}
+
+const useStyles = makeStyles({
+    root: {
+      height: "100%"
+    },
+    header: {
+      marginBottom: "2rem"
+    },
+    action: {
+      marginTop: "1rem"
+    }
+  });
+
 export default Login;

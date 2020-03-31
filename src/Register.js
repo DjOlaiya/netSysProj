@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-// import AppBar from 'material-ui/core/AppBar';
-import TextField from 'material-ui/core/TextField';
+import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
+import AppBar from '@material-ui/core/AppBar';
+import TextField from '@material-ui/core/TextField';
 import axios from 'axios';
 import Login from './Login';
 
@@ -52,9 +52,10 @@ class Register extends Component
     render(){
         return (
             <div>
+                <h1> REGISTER</h1>
                 <MuiThemeProvider>
                     <div>
-                        {/* <AppBar title='Register'/> */}
+                        <AppBar title='Register'/>
                         <TextField 
                          hintText = "Enter  first name" 
                          floatingLabelText = "First Name"
