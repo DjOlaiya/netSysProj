@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
+import {ThemeProvider as MuiThemeProvider} from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import TextField from '@material-ui/core/TextField';
 import axios from 'axios';
@@ -27,12 +27,11 @@ class Register extends Component
         "firstName": this.state.firstName,
         "lastName":this.state.lastName,
         "email":this.state.email,
-        "password":this.state.password
         }
         axios.post(apiBaseUrl+'/register', payload)
        .then(function (response) {
          console.log(response);
-         if(response.data.code == 200){
+         if(response.data.code === 200){
           //  console.log("registration successfull");
            var loginscreen=[];
            loginscreen.push(<Login parentContext={this}/>);
@@ -57,27 +56,31 @@ class Register extends Component
                     <div>
                         <AppBar title='Register'/>
                         <TextField 
+                        variant = "outlined"
                          hintText = "Enter  first name" 
-                         floatingLabelText = "First Name"
+                         label = "First Name"
                          onChange = {(event,newValue) => this.setState({firstName:newValue})}
                         />
                          <br/>
                         <TextField 
+                           variant = "outlined"
                            hintText = "Enter last name"
-                           floatingLabelText = "Last Name"
+                           label = "Last Name"
                            onChange = {(event,newValue)=> this.setState({lastName:newValue})}
                         />
                         <br/>
                          <TextField 
+                         variant = "outlined"
                          hintText = "Enter email address" 
-                         floatingLabelText = "email"
+                         label = "email"
                          onChange = {(event,newValue) => this.setState({email:newValue})}
                         />
                         <br/>
                          <TextField 
+                         variant = "outlined"
                          type = 'password'
                          hintText = "Enter password" 
-                         floatingLabelText = "password"
+                         label = "password"
                          onChange = {(event,newValue) => this.setState({password:newValue})}
                         />
                     </div>
