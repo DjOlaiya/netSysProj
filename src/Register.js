@@ -4,6 +4,8 @@ import AppBar from '@material-ui/core/AppBar';
 import TextField from '@material-ui/core/TextField';
 import axios from 'axios';
 import Login from './Login';
+import Button from '@material-ui/core/Button';
+import { Auth } from "aws-amplify";
 
 class Register extends Component 
 {
@@ -11,43 +13,36 @@ class Register extends Component
     {
         super(props);
         this.state = {
+            username: "",
             firstName: "",
             lastName: "",
             email: "",
-            password: ""
+            password: "",
+            isRegistered: false
         }
     }
 
-    handleClick(event){
-        var apiBaseUrl = "http://localhost:4000/api/";
-        console.log("values",this.state.firstName,this.state.lastName,this.state.email,this.state.password);
-        //To be done:check for empty values before hitting submit
-        var self = this;
-        var payload={
-        "firstName": this.state.firstName,
-        "lastName":this.state.lastName,
-        "email":this.state.email,
+      signUp = async(e) =>  {
+        
+        try {
+            console.log(this.state)
+            // console.log(e)
+          const res = await Auth.signUp({
+            username : this.state.username,
+            password : this.state.password,
+            attributes: 
+            {
+              email: this.state.email,
+              family_name: this.state.lastName,
+              name: this.state.firstName
+            }
+          });
+          alert("Congrats on Registration")
+          this.setState({isRegistered: true})
+        }catch(err){
+            return err.code
         }
-        axios.post(apiBaseUrl+'/register', payload)
-       .then(function (response) {
-         console.log(response);
-         if(response.data.code === 200){
-          //  console.log("registration successfull");
-           var loginscreen=[];
-           loginscreen.push(<Login parentContext={this}/>);
-           var loginmessage = "Not Registered yet.Go to registration";
-           self.props.parentContext.setState({loginscreen:loginscreen,
-           loginmessage:loginmessage,
-           buttonLabel:"Register",
-           isLogin:true
-            });
-         }
-       })
-       .catch(function (error) {
-         console.log(error);
-       });
-      }
-
+    };
     render(){
         return (
             <div>
@@ -57,23 +52,30 @@ class Register extends Component
                         <AppBar title='Register'/>
                         <TextField 
                         variant = "outlined"
+                         hintText = "Enter User Name" 
+                         label = "Username"
+                         onChange = {(e) => this.setState({username:e.target.value})}
+                        />
+                        <br/>
+                        <TextField 
+                        variant = "outlined"
                          hintText = "Enter  first name" 
                          label = "First Name"
-                         onChange = {(event,newValue) => this.setState({firstName:newValue})}
+                         onChange = {(e) => this.setState({firstName:e.target.value})}
                         />
                          <br/>
                         <TextField 
                            variant = "outlined"
                            hintText = "Enter last name"
                            label = "Last Name"
-                           onChange = {(event,newValue)=> this.setState({lastName:newValue})}
+                           onChange = {(e)=> this.setState({lastName:e.target.value})}
                         />
                         <br/>
                          <TextField 
                          variant = "outlined"
                          hintText = "Enter email address" 
                          label = "email"
-                         onChange = {(event,newValue) => this.setState({email:newValue})}
+                         onChange = {(e) => this.setState({email:e.target.value})}
                         />
                         <br/>
                          <TextField 
@@ -81,8 +83,22 @@ class Register extends Component
                          type = 'password'
                          hintText = "Enter password" 
                          label = "password"
-                         onChange = {(event,newValue) => this.setState({password:newValue})}
+                         onChange = {(e) => this.setState({password:e.target.value})}
                         />
+                        <br></br>
+                         <Button 
+                            variant="contained"
+                             style={style}
+                             onClick = {this.signUp}>
+                           Register
+                            </Button> 
+                        <br/>
+                         <Button 
+                            variant="contained"
+                             style={style}
+                             onClick = {() => this.props.handleView("login")}>
+                           Log in 
+                            </Button> 
                     </div>
                 </MuiThemeProvider>
             </div>

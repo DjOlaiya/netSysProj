@@ -1,13 +1,13 @@
 import './App.css';
-import LoginScreen from './LoginScreen'
+import Login from './Login'
 import React, { Component, useEffect } from 'react';
 import { StylesProvider, ThemeProvider } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 // import Routes from "./Routes";
 import Amplify from "aws-amplify";
-import config from "./configureCognito";
-
-
+import config from "./configCognito";
+import Authentication from "./Authentication";
+import WelcomeScreen from "./WelcomeScreen";
 console.log(process.env.REACT_APP_API_GATEWAY)
 
 Amplify.configure({
@@ -23,22 +23,19 @@ class App extends Component {
   constructor(props){
     super(props);
     this.state={
-      loginPage:[],
-      uploadScreen:[]
+      userSession: null,
+      isAuth: false
     }
   }
-  componentWillMount(){
-    var loginPage =[];
-    loginPage.push(<LoginScreen parentContext={this}/>);
-    this.setState({
-                  loginPage:loginPage
-                    })
+
+  handleLogin = (e) => {
+    this.setState({userSession: e, isAuth: true})
   }
+
   render() {
     return (
       <div className="App">
-        {this.state.loginPage}
-        {this.state.uploadScreen}
+        {this.state.isAuth ? <WelcomeScreen/> : <Authentication handleLogin = {this.handleLogin}/>}
       </div>
     );
   }

@@ -5,8 +5,8 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
-import axios from 'axios';
-import UploadScreen from './UploadScreen';
+import { Auth } from "aws-amplify";
+import UploadScreen from './WelcomeScreen';
 
 class Login extends Component {
     constructor(props)
@@ -16,37 +16,19 @@ class Login extends Component {
                       password: ""}
     }
 
-    handleClick(event){
-        var apiBaseUrl = "http://localhost:4000/api/";
-        var self = this;
-        var payload={
-        "email":this.state.username,
-        "password":this.state.password
-        }
-        axios.post(apiBaseUrl+'login', payload)
-        .then(function (response) {
-        console.log(response);
-        if(response.data.code === 200){
-        console.log("Login successfull");
-        var uploadScreen=[];
-        uploadScreen.push(<UploadScreen appContext={self.props.appContext}/>)
-        self.props.appContext.setState({loginPage:[],uploadScreen:uploadScreen})
-        } //I dont understand what's happening in upload screen is it recursive?
-        else if(response.data.code === 204){
-        console.log("Username password do not match");
-        alert("username password do not match")
-        }
-        else{
-        console.log("Username does not exists");
-        alert("Username does not exist");
-        }
-        })
-        .catch(function (error) {
-        console.log(error);
-        });
-        }
-
-
+     handleClick = async (event) => {
+      
+        try {
+          console.log(this.state)
+          const res = await Auth.signIn(this.state.username, this.state.password);
+          this.props.handleLogin(res) ;
+          console.log(res)
+        }catch (err) {
+            console.log(err)
+            return err.code
+          }
+        };
+      
     render(){
         return(
             <div>
@@ -58,7 +40,7 @@ class Login extends Component {
                          variant = "outlined"
                          hintText = "Enter Username" 
                          label = "Username"
-                         onChange = {(event,newValue) => this.setState({username:newValue})}
+                         onChange = {(event) => this.setState({username:event.target.value})}
                         />
                          <br/>
                         <TextField 
@@ -66,14 +48,20 @@ class Login extends Component {
                            type = "Password"
                            hintText = "Enter your Password"
                            label = "Password"
-                           onChange = {(event,newValue)=> this.setState({password:newValue})}
+                           onChange = {(event)=> this.setState({password:event.target.value})}
                         />
                             <br/>
                             <Button 
                             variant="contained"
                              style={style}
-                             onClick = {(event)=> this.handleClick(event)}>
+                             onClick = {this.handleClick}>
                             Sign In     
+                            </Button> 
+                            <Button 
+                            variant="contained"
+                             style={style}
+                             onClick = {() => this.props.handleView("signup")}>
+                           Register   
                             </Button> 
                     </div>
                 </MuiThemeProvider>

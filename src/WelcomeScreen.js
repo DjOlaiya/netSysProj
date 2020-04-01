@@ -3,11 +3,11 @@ import React, { Component } from 'react';
 import Login from './Login';
 import Register from './Register';
 
-class UploadScreen extends Component 
+class WelcomeScreen extends Component 
 {
     render() {
         return (
-          <div className="uploadscreen">
+          <div className="welcomescreen">
               <h1> Congrats on logging in</h1>
           </div>
         );
@@ -15,6 +15,6 @@ class UploadScreen extends Component
 }
 
 const style = {margin:15}
-export default UploadScreen
+export default WelcomeScreen
 
 
