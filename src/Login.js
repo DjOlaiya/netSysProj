@@ -23,6 +23,30 @@ class Login extends Component {
           const res = await Auth.signIn(this.state.username, this.state.password);
           this.props.handleLogin(res) ;
           console.log(res)
+
+          // first three lines of this pulled from the ipifiy.org list of examples.
+          var http = require('http');
+          http.get({'host': 'api.ipify.org', 'port': 80, 'path': '/'}, function(resp) {
+            resp.on('data', function(ip) {
+              // get previously-saved ip addresses
+              var savedIPdata = document.cookie.replace(/(?:(?:^|.*;\s*)seenip\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+              // split into iterable thing
+              var seenIPs = savedIPdata.split(',');
+              // create stickynote for future reference
+              var newIP = true;
+              // iterate over the previously-saved ip addresses
+              for (var i = 0; i < seenIPs.length; i++) {
+                // if we've seen our current ip, jot that down on the sticky
+                if (ip == seenIPs[i]) {
+                   newIP = false;
+                   break;
+                }
+              }
+              if (newIP) {
+                document.cookie = "seenip="+ip+","+savedIPdata;
+              }
+            });
+          });
         }catch (err) {
             console.log(err)
             return err.code
