@@ -6,23 +6,25 @@ exports.handler = async (event, context, callback) => {
   console.log("EVENT:");
   console.log(event);
   const {
-    username,
+    name,
     request: {
       userAttributes: {
         sub,
-        email,
-        init_ip
+        name,
+        family_name,
+        email
       }
     }
   } = event;
 
   const params = {
-    TableName: "netSysProj-Users",
+    TableName: "netSysProj-IPtbl",
     Item: {
-      pid: sub,
-      username: username,
-      email: email,
-      init_ip: init_ip
+      ipid: ipid,
+      name: name,
+      ip : ip,
+      region: region,
+      country: country
     }
   };
 
@@ -32,7 +34,7 @@ exports.handler = async (event, context, callback) => {
       "Access-Control-Allow-Credentials": true // Required for cookies, authorization headers with HTTPS
     },
     statusCode: 200,
-    body: JSON.stringify("User Inserted!")
+    body: JSON.stringify("new data stored!")
   };
 
   const documentClient = new AWS.DynamoDB.DocumentClient({

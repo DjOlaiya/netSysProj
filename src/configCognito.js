@@ -5,8 +5,8 @@ const config = {
     },
     cognito: {
       REGION: "us-east-1",
-      USER_POOL_ID: "us-east-1_doUOooYOS",
-      APP_CLIENT_ID: "2i4hf0jhle3q022i7j11ldfstf"
+      USER_POOL_ID: "us-east-1_kCHkv4uYE",
+      APP_CLIENT_ID: "30i8ffm099tp199vdoodr8jce9"
       // IDENTITY_POOL_ID: "us-east-1:970b8455-6684-4139-a626-43a9021b654d"
     }
   };
