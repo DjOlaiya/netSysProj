@@ -1,9 +1,21 @@
 This Project is for CMPT 479: Network and Systems Security.
 Objective of this project is to figure out a way to detect VPN users on a website, through the use of cookies.
 
-
+ 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+A live version of the program is up at https://djp-netsys.s3.amazonaws.com/index.html and will be available till the end of april.
+
+You can register to log in and you will receive a verification link in your email. 
+Otherwise, the following dummy accounts have been made
+username: fakeuser1
+password: fakeuser1
+
+username: fakeuser3
+password: fakeuser3
+
+username: fakeuser5
+password: fakeuser5
 ## Available Scripts
 
 In the project directory, you can run:
