@@ -1,3 +1,6 @@
+import * as uuid from "uuid";
+import AWS from "aws-sdk";
+
 const AWS = require("aws-sdk");
 
 AWS.config.update({ region: "us-east-1" });
@@ -6,25 +9,22 @@ exports.handler = async (event, context, callback) => {
   console.log("EVENT:");
   console.log(event);
   const {
-    name,
-    request: {
-      userAttributes: {
-        sub,
-        name,
-        family_name,
-        email
-      }
-    }
+    username,
+        ip,
+        region,
+        country,
+        timestamp
   } = event;
 
   const params = {
     TableName: "netSysProj-IPtbl",
     Item: {
-      ipid: ipid,
-      name: name,
+      ipid: uuid.v1(),
+      name: username,
       ip : ip,
       region: region,
-      country: country
+      country: country,
+      timestamp: timestamp
     }
   };
 

@@ -10,9 +10,13 @@
     "aws-amplify": "^2.3.0",
     "aws-sdk": "^2.650.0",
     "axios": "^0.19.2",
+    "custom-env": "^2.0.1",
+    "dotenv": "^8.2.0",
+    "promise": "^8.1.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-scripts": "3.4.1"
+    "react-scripts": "3.4.1",
+    "uuid": "^7.0.3"
   },
   "scripts": {
     "start": "react-scripts start",

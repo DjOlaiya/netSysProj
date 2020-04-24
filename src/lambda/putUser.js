@@ -3,18 +3,18 @@ const AWS = require("aws-sdk");
 AWS.config.update({ region: "us-east-1" });
 // details to connect to api
 exports.handler = async (event, context, callback) => {
-  console.log("EVENT:");
-  console.log(event);
-  const {
-    username,
-    request: {
-      userAttributes: {
-        sub,
-        email,
-        init_ip
-      }
-    }
-  } = event;
+  // console.log("EVENT:");
+  // console.log(event);
+  // const {
+  //   username,
+  //   request: {
+  //     userAttributes: {
+  //       sub,
+  //       email,
+  //       init_ip
+  //     }
+  //   }
+  // } = event;
 
   const params = {
     TableName: "netSysProj-Users",
